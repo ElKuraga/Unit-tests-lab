@@ -1,38 +1,50 @@
-# test_rectangle.py
 import unittest
 from rectangle import area, perimeter
 
 class RectangleTestCase(unittest.TestCase):
     
-    def test_area_normal(self):
-        # Проверка нормальных значений
-        self.assertEqual(area(5, 4), 20)
-        self.assertEqual(area(3, 7), 21)
-        self.assertEqual(area(2.5, 4), 10.0)
-    
+    # Тесты для площади
     def test_area_zero(self):
-        # Проверка граничных значений
-        self.assertEqual(area(10, 0), 0)
-        self.assertEqual(area(0, 10), 0)
-        self.assertEqual(area(0, 0), 0)
+        res = area(10, 0)
+        self.assertEqual(res, 0)
     
-    def test_area_negative(self):
-        # Проверка на отрицательные значения (если нужно)
-        self.assertEqual(area(-5, 4), -20)
-        # Или можно проверять исключения:
-        # with self.assertRaises(ValueError):
-        #area(-5, 4)
+    def test_area_square(self):
+        res = area(10, 10)
+        self.assertEqual(res, 100)
+    
+    def test_area_normal(self):
+        res = area(3, 7)
+        self.assertEqual(res, 21)
+    
+    def test_area_float(self):
+        res = area(5.5, 2)
+        self.assertEqual(res, 11.0)
+    
+    # Тесты для периметра
+    def test_perimeter_zero(self):
+        res = perimeter(10, 0)
+        self.assertEqual(res, 20)
+    
+    def test_perimeter_square(self):
+        res = perimeter(10, 10)
+        self.assertEqual(res, 40)
     
     def test_perimeter_normal(self):
-        # Проверка периметра
-        self.assertEqual(perimeter(5, 4), 18)
-        self.assertEqual(perimeter(3, 7), 20)
-        self.assertEqual(perimeter(2.5, 4), 13.0)
+        res = perimeter(3, 7)
+        self.assertEqual(res, 20)
     
-    def test_perimeter_zero(self):
-        # Граничные значения для периметра
-        self.assertEqual(perimeter(10, 0), 20)
-        self.assertEqual(perimeter(0, 0), 0)
+    def test_perimeter_float(self):
+        res = perimeter(5.5, 2.5)
+        self.assertEqual(res, 16.0)
+    
+    # Негативные тесты (ожидаем исключение)
+    def test_area_negative(self):
+        with self.assertRaises(ValueError):
+            area(-10, 5)
+    
+    def test_perimeter_negative(self):
+        with self.assertRaises(ValueError):
+            perimeter(-10, -5)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
